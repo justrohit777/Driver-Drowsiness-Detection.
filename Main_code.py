@@ -159,7 +159,7 @@ while(True):
                 
                 # check if emotion is happy else if emotion is neutral
                 if dominant_emotion == "happy":
-                    cv2.putText(frame, f"{dominant_emotion}", (10, 150), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (100, 255, 100), 2)
+                    cv2.putText(frame, "Smiling", (10, 150), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (100, 255, 100), 2)
                 elif dominant_emotion == "neutral":
                     cv2.putText(frame, f"{dominant_emotion}", (10, 150), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (100, 255, 100), 2)
         
