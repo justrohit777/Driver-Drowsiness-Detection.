@@ -1,16 +1,15 @@
 #importing modules
 from scipy.spatial import distance as dist
+import cv2
+import os
 from imutils import face_utils
 import imutils
 import dlib
-import cv2
-import os
 import requests
-from tqdm import tqdm
 import numpy as np
 import pygame
 
-#funtion to calculate eye aspect ratio
+#funtion for calculate eye aspect ratio
 def ratio_of_eye(eye):
     # Define the eye landmarks
     left_eye_top = eye[1]
@@ -123,6 +122,9 @@ while(True):
         
         horizontal_rotation_threshold = 10
         vertical_rotation_threshold = 10
+
+        for (x, y) in shape:
+            cv2.circle(frame, (x, y), 1, (0, 255, 0), -1)
         
         # Check for eye alert
         if ear < 0.25 and view == "Center":
@@ -145,9 +147,26 @@ while(True):
             #make view is not center
             view = "not Center"
             cv2.putText(frame, "FACE ROTATION ALERT", (10, 120), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 2)
-        
 
+        # Facial expression detection
+        rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        predictions = DeepFace.analyze(rgb_frame, actions=['emotion'], enforce_detection=False)
+        
+        # Check if predictions is a list and is not empty
+        if isinstance(predictions, list) and len(predictions) > 0:
+            for prediction in predictions:
+                dominant_emotion = prediction.get("dominant_emotion", "Unknown")
+                
+                # check if emotion is happy else if emotion is neutral
+                if dominant_emotion == "happy":
+                    cv2.putText(frame, f"{dominant_emotion}", (10, 150), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (100, 255, 100), 2)
+                elif dominant_emotion == "neutral":
+                    cv2.putText(frame, f"{dominant_emotion}", (10, 150), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (100, 255, 100), 2)
+        
+        
+    #display the frame
     cv2.imshow("Frame", frame)
+    #wait for a key entry
     stop = cv2.waitKey(1)
     #stop video stream if pressed 'E'
     if stop == ord('E'):
