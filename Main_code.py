@@ -1,5 +1,6 @@
 #importing modules
 from scipy.spatial import distance as dist
+from deepface import DeepFace
 import cv2
 import os
 from imutils import face_utils
@@ -117,11 +118,7 @@ while(True):
         eyes_center = ((left_Eye[0] + right_Eye[3]) / 2.0)
         nose_horizontal_dist = abs(nose_tip[0] - eyes_center[0])
         
-        eyes_vertical_center = (left_Eye[1][1] + right_Eye[4][1]) / 2.0
-        nose_vertical_dist = abs(nose_tip[1] - eyes_vertical_center)
-        
         horizontal_rotation_threshold = 10
-        vertical_rotation_threshold = 10
 
         for (x, y) in shape:
             cv2.circle(frame, (x, y), 1, (0, 255, 0), -1)
