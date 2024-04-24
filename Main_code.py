@@ -126,7 +126,7 @@ while(True):
         # Check for eye alert
         if ear < 0.25 and view == "Center":
             flag += 1
-            if flag >= 20:
+            if flag >= 40:
                 cv2.putText(frame, "EYE ALERT", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
                 beep_sound.play()
         else:
