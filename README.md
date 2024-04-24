@@ -12,3 +12,4 @@ Below libraries are required to run this file:
 5. scipy
 6. pygame
 7. requests
+8. deepface
