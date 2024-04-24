@@ -133,7 +133,7 @@ while(True):
             flag = 0
         
         # Check for yawn alert
-        if mar > 0.6 and view == "Center":
+        if mar > 0.5 and view == "Center":
             cv2.putText(frame, "YAWN ALERT", (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
             beep_sound.play()
 
